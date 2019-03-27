@@ -7,7 +7,9 @@ package it.polito.tdp.alien;
 
 
 import java.net.URL;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +18,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class AlienController {
+	Dizionario d=new Dizionario();
+	String ParolaAliena;
+	String ParolaTradotta;
+	
 	
     @FXML
     private ResourceBundle resources;
@@ -43,13 +49,44 @@ public class AlienController {
     
     @FXML
     void doTranslate(ActionEvent event) {
-    	    	
+    	if(btnTranslate.isArmed()&&txtWord.getText().trim().length()!=0) {
+    		
+             ParolaAliena=null;
+             ParolaTradotta=null;
+             txtResult.clear();
+             String s=txtWord.getText().toLowerCase();
+             txtWord.clear();
+            
+    	
+    		StringTokenizer st=new StringTokenizer(s," ");
+    	    if(st.hasMoreTokens()==true) {
+    	        ParolaAliena=st.nextToken().trim();
+    	    }
+    	    if(st.hasMoreTokens()==true) {
+    	        ParolaTradotta=st.nextToken().trim();
+    	    }
+    	    
+    		if(ParolaAliena!=null&&ParolaTradotta==null) {
+    			
+    			String t=d.cercaParola(ParolaAliena);
+    			txtResult.appendText(t);
+    		}
+    		else if(ParolaAliena!=null&&ParolaTradotta!=null){
+    			Parola p=new Parola(ParolaAliena,ParolaTradotta);
+    			d.aggiungiParola(p.getParolaAliena(), p);
+    		}
+    	
+    	}
+		
+    	
     }
     
     
     @FXML
     void doReset(ActionEvent event) {
-
+    	if(btnReset.isArmed())
+          txtResult.clear();
+          d.cancella();
     }
     
 }
