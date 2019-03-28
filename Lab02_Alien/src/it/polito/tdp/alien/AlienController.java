@@ -72,8 +72,7 @@ public class AlienController {
     			txtResult.appendText(t);
     		}
     		else if(ParolaAliena!=null&&ParolaTradotta!=null){
-    			Parola p=new Parola(ParolaAliena,ParolaTradotta);
-    			d.aggiungiParola(p.getParolaAliena(), p);
+    			d.aggiungiParola(ParolaAliena,ParolaTradotta);
     		}
     	
     	}

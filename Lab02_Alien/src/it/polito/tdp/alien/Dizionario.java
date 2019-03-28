@@ -8,16 +8,21 @@ public class Dizionario {
 		
 	}
 
-	public void aggiungiParola(String s,Parola p) {
-		if(!parole.containsKey(s))
-		  parole.put(s, p);
-		else
-			parole.replace(s, parole.get(s), p);
+	public void aggiungiParola(String s1,String s2) {
+		
+		if(!parole.containsKey(s1)) {
+			Parola p=new Parola(s1);
+			parole.put(s1, p);
+		    p.aggiungiTraduzione(s2);
+		}
+		else {
+		  parole.get(s1).aggiungiTraduzione(s2);
+		}
 	}
 	
 	public String cercaParola(String s) {
 		if(parole.containsKey(s))
-		    return parole.get(s).getParolaTradotta();
+		    return parole.get(s).elenco();
 		else 
 			return "Parola non presente";
 	}
